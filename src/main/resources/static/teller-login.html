@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teller Login - MyBank</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body">
+<div class="auth-container">
+    <div class="auth-card">
+        <h1 class="auth-title">Sign in as Teller</h1>
+        <p class="auth-subtitle">
+            Use your teller credentials to access customer operations.
+        </p>
+
+        <form id="tellerLoginForm" class="auth-form">
+            <div class="form-group">
+                <label for="tellerEmail">Email</label>
+                <input
+                    type="email"
+                    id="tellerEmail"
+                    name="email"
+                    class="input-field"
+                    placeholder="teller@example.com"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="tellerPassword">Password</label>
+                <input
+                    type="password"
+                    id="tellerPassword"
+                    name="password"
+                    class="input-field"
+                    placeholder="Enter your password"
+                    required
+                />
+            </div>
+
+            <button type="submit" class="btn btn-primary full-width">
+                Sign In
+            </button>
+
+            <div class="role-switch">
+                <a href="customer-login.html">Sign in as Customer</a>
+                <span class="divider">|</span>
+                <a href="admin-login.html">Sign in as Admin</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="teller-login.js"></script>
+</body>
+</html>
