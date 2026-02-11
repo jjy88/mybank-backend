@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<TransactionEntity, Long> {
     List<TransactionEntity> findByFromAccountIdInOrToAccountIdIn(List<Long> fromIds, List<Long> toIds);
+    List<TransactionEntity> findByTellerIdOrderByTimestampDesc(Long tellerId);
 }

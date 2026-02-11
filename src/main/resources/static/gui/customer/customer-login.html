@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>MyBank | Sign in</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
 <!-- Centered page background -->
@@ -12,7 +12,6 @@
     <!-- Card container (fixes full-width inputs) -->
     <div class="auth-card">
         <h1 class="card-title">Sign in to your account</h1>
-        <p class="card-subtitle">Don’t have an account? <a href="customer-register.html">Sign up</a></p>
 
         <form id="loginForm" novalidate>
             <div class="field">
@@ -27,15 +26,18 @@
                 <div class="error" data-err="loginPassword"></div>
             </div>
 
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:16px;">
-                <button type="submit" class="btn btn-primary">Sign in</button>
-                <button id="forgotBtn" type="button" class="btn btn-secondary">Forgot your password?</button>
+             <div style="display:flex; align-items:center; justify-content:space-between; margin-top:16px;">
+                <button type="submit" class="btn btn-primary full-width">Sign in</button>
+            </div>
+
+            <div class="role-switch">
+                <a href="../teller/teller-login.html">Sign in as Teller</a>
             </div>
         </form>
     </div>
 </div>
 
-<!-- Forgot password modal (hidden by default) -->
+<!-- Forgot password modal (hidden by default)
 <div id="forgotModal" class="modal" hidden>
     <div class="modal__backdrop"></div>
     <div class="modal__panel">
@@ -58,8 +60,8 @@
             </div>
         </form>
     </div>
-</div>
+</div> -->
 
-<script src="/customer.js"></script>
+<script src="../../js/customer.js"></script>
 </body>
-</html>
+</html> 

@@ -1,0 +1,59 @@
+/* Teller-specific styles moved from teller-dashboard.html */
+
+.msg {
+    margin-left: 12px;
+    font-size: 14px;
+}
+
+.msg.success {
+    color: #0f9d58;
+}
+
+.msg.error {
+    color: #e53935;
+}
+
+.msg.info {
+    color: #5e6b85;
+}
+
+/* Table (teller specific table container used by Customers/other lists) */
+.table-container {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #e3e8f2;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead {
+    background: #f6f8fc;
+}
+
+.table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 13px;
+    color: #5e6b85;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #e3e8f2;
+}
+
+.table td {
+    padding: 16px;
+    border-bottom: 1px solid #e3e8f2;
+}
+
+.table tbody tr:hover {
+    background: #f6f8fc;
+}
+
+/* Teller-specific responsive tweaks (if needed) can be added here */

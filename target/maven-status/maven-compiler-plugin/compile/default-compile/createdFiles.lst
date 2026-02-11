@@ -1,5 +1,7 @@
+com/mybank/app/repository/BranchRepository.class
 com/mybank/app/repository/TransactionRepository.class
 com/mybank/app/service/customer/CustomerService.class
+com/mybank/app/dto/TransactionDTO.class
 com/mybank/app/repository/TellerRepository.class
 com/mybank/app/controller/admin/AdminController.class
 com/mybank/app/service/teller/TellerService.class
@@ -9,6 +11,7 @@ com/mybank/app/model/AccountEntity.class
 com/mybank/app/controller/teller/TellerController.class
 com/mybank/app/model/CustomerEntity.class
 com/mybank/app/util/Validator.class
+com/mybank/app/model/BranchEntity.class
 com/mybank/app/repository/CustomerRepository.class
 com/mybank/app/model/AdminEntity.class
 com/mybank/app/util/ApiResponse.class

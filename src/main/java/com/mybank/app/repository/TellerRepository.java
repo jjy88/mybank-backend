@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface TellerRepository extends JpaRepository<TellerEntity, Long> {
     Optional<TellerEntity> findByEmailAndPassword(String email, String password);
+    Optional<TellerEntity> findByEmail(String email);
 }

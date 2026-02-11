@@ -93,11 +93,15 @@ CREATE TABLE `transaction` (
   timestamp       DATETIME,
   type            VARCHAR(50),            -- 'DEPOSIT' | 'WITHDRAW' | 'TRANSFER'
   description     VARCHAR(255),
+  teller_id       BIGINT,                 -- Teller who processed the transaction (NULL if customer-initiated)
   CONSTRAINT fk_tx_from_account
     FOREIGN KEY (from_account_id) REFERENCES account(account_id)
     ON DELETE SET NULL,
   CONSTRAINT fk_tx_to_account
     FOREIGN KEY (to_account_id) REFERENCES account(account_id)
+    ON DELETE SET NULL,
+  CONSTRAINT fk_tx_teller
+    FOREIGN KEY (teller_id) REFERENCES teller(user_id)
     ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -130,18 +134,69 @@ VALUES
 
 SET @uid := LAST_INSERT_ID();
 
+
 -- Account
 INSERT INTO account (user_id, account_type, balance)
 VALUES (@uid, 'CHECKING', 5000.00);
 SET @acc := LAST_INSERT_ID();
 
 -- Sample transactions
-INSERT INTO `transaction` (from_account_id, to_account_id, amount, timestamp, type, description)
+INSERT INTO `transaction` (from_account_id, to_account_id, amount, timestamp, type, description, teller_id)
 VALUES
-  (NULL, @acc, 1000.00, NOW() - INTERVAL 5 DAY, 'DEPOSIT',  'Initial deposit'),
-  (@acc, NULL,  150.00,  NOW() - INTERVAL 2 DAY, 'WITHDRAW', 'ATM withdrawal');
+  (NULL, @acc, 1000.00, NOW() - INTERVAL 5 DAY, 'DEPOSIT',  'Initial deposit', NULL),
+  (@acc, NULL,  150.00,  NOW() - INTERVAL 2 DAY, 'WITHDRAW', 'ATM withdrawal', NULL);
+
+-- ==========================================
+-- Marry Doe + her account
+-- ==========================================
+SET @marry_email := 'marry@bank.ca';
+DELETE FROM customer WHERE email = @marry_email;
+
+INSERT INTO customer
+  (first_name, last_name, email, password, role, address, phone_number, date_of_birth, sin, branch_id)
+VALUES
+  ('Marry', 'Doe', @marry_email, 'pass1234', 'CUSTOMER',
+   '456 Test Road, Montreal', '5149998888', '1998-01-01', 987654321, @branch_id);
+
+SET @marry_uid := LAST_INSERT_ID();
+
+-- Marry Account (CHECKING only)
+INSERT INTO account (user_id, account_type, balance)
+VALUES (@marry_uid, 'CHECKING', 500.00);
+
+
+USE mybank;
+
+-- Ensure a branch exists (use your real branch if already present)
+INSERT INTO branch (branch_name, address, city, province, postal_code, phone_number)
+SELECT 'Downtown Montreal','123 Demo St','Montreal','QC','H1A 1A1','514-555-0000'
+WHERE NOT EXISTS (SELECT 1 FROM branch WHERE branch_name='Downtown Montreal');
+
+-- Grab a branch_id to use
+SET @branch_id := (SELECT branch_id FROM branch WHERE branch_name='Downtown Montreal' LIMIT 1);
+
+-- Seed ADMIN (email+plain password for now; later switch to bcrypt in app)
+DELETE FROM admin WHERE email='admin@bank.ca';
+INSERT INTO admin (first_name,last_name,email,password,role,admin_level)
+VALUES ('Ada','Admin','admin@bank.ca','pass1234','ADMIN','System Administrator');
+
+-- Seed TELLER
+DELETE FROM teller WHERE email='teller@bank.ca';
+INSERT INTO teller (first_name,last_name,email,password,role,branch_name,branch_id)
+VALUES ('Terry','Teller','teller@bank.ca','pass1234','TELLER','Downtown Montreal',@branch_id);
+
+-- ================================================================
+-- Adjust AUTO_INCREMENT values for easier testing
+-- Customers start at 1, accounts at 100,
+-- ================================================================
+
+ALTER TABLE account  AUTO_INCREMENT = 100;
+ALTER TABLE `transaction` AUTO_INCREMENT = 100;
 
 COMMIT;
+
+
+
 
 -- ================================================================
 -- Quick checks (these select statements verify the seed)
@@ -158,3 +213,14 @@ SELECT transaction_id, from_account_id, to_account_id, amount, type, timestamp
 FROM `transaction`
 WHERE from_account_id = @acc OR to_account_id = @acc
 ORDER BY timestamp DESC;
+
+-- Branch exists and @branch_id is set
+SELECT @branch_id AS branch_id, branch_name FROM branch WHERE branch_id=@branch_id;
+
+-- Admin row
+SELECT user_id, first_name, last_name, email, role, admin_level FROM admin
+WHERE email='admin@bank.ca';
+
+-- Teller row
+SELECT user_id, first_name, last_name, email, role, branch_name, branch_id FROM teller
+WHERE email='teller@bank.ca';

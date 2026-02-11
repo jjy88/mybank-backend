@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyBank | Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/admin-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>MyBank</h1>
+                <p id="adminSidebarName">Administrator</p>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" data-page="customers">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            Customers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="tellers">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
+                            Tellers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="branches">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                            Branches
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="transactions">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Transactions
+                        </a>
+                    </li>
+                    <li class="nav-item nav-logout">
+                        <a href="#" class="nav-link" id="adminLogoutBtn">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Customers Page -->
+            <div id="page-customers" class="page-content active">
+                <div class="page-header">
+                    <h2>Customers</h2>
+                    <p>Manage all customer accounts</p>
+                </div>
+                <div class="card-modern">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+                        <h3 style="margin:0;">Customer List</h3>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <input type="text" id="adminCustomerSearch" placeholder="Search (name, email, address)..." style="padding:8px 12px;border:1px solid #e3e8f2;border-radius:6px;min-width:200px;">
+                            <select id="adminCustomerBranchFilter" style="padding:8px 12px;border:1px solid #e3e8f2;border-radius:6px;">
+                                <option value="">All Branches</option>
+                            </select>
+                            <input type="text" id="adminCustomerAccountFilter" placeholder="Account ID" inputmode="numeric" pattern="[0-9]+" style="padding:8px 12px;border:1px solid #e3e8f2;border-radius:6px;max-width:120px;">
+                            <button id="btnLoadCustomers" class="btn-secondary">Load Customers</button>
+                        </div>
+                    </div>
+                    <div id="customersTableWrap">
+                        <p class="help" style="color:#5e6b85;margin:0;">Click "Load Customers" to view all customers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tellers Page -->
+            <div id="page-tellers" class="page-content">
+                <div class="page-header">
+                    <h2>Tellers</h2>
+                    <p>Manage teller accounts</p>
+                </div>
+                <div class="card-modern">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                        <h3 style="margin:0;">Teller List</h3>
+                        <button id="btnLoadTellers" class="btn-secondary">Load Tellers</button>
+                    </div>
+                    <div id="tellersTableWrap">
+                        <p class="help" style="color:#5e6b85;margin:0;">Click "Load Tellers" to view all tellers.</p>
+                    </div>
+                </div>
+                <div class="card-modern">
+                    <h3>Create Teller</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newTellerFirstName">First Name *</label>
+                            <input id="newTellerFirstName" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newTellerLastName">Last Name *</label>
+                            <input id="newTellerLastName" type="text" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newTellerEmail">Email *</label>
+                            <input id="newTellerEmail" type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newTellerPassword">Password *</label>
+                            <input id="newTellerPassword" type="password" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newTellerBranchId">Branch *</label>
+                            <select id="newTellerBranchId" required>
+                                <option value="">Select branch...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;margin-top:24px;">
+                        <button id="btnCreateTeller" class="btn-primary">Create Teller</button>
+                        <span id="createTellerMsg" class="msg"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Branches Page -->
+            <div id="page-branches" class="page-content">
+                <div class="page-header">
+                    <h2>Branches</h2>
+                    <p>Manage bank branches</p>
+                </div>
+                <div class="card-modern">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                        <h3 style="margin:0;">Branch List</h3>
+                        <button id="btnLoadBranches" class="btn-secondary">Load Branches</button>
+                    </div>
+                    <div id="branchesTableWrap">
+                        <p class="help" style="color:#5e6b85;margin:0;">Click "Load Branches" to view all branches.</p>
+                    </div>
+                </div>
+                <div class="card-modern">
+                    <h3>Create Branch</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newBranchName">Branch Name *</label>
+                            <input id="newBranchName" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newBranchPhone">Phone Number</label>
+                            <input id="newBranchPhone" type="tel" placeholder="+1 555 123 4567">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newBranchAddress">Address</label>
+                            <input id="newBranchAddress" type="text" placeholder="Street address">
+                        </div>
+                        <div class="form-group">
+                            <label for="newBranchCity">City</label>
+                            <input id="newBranchCity" type="text" placeholder="City">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newBranchProvince">Province</label>
+                            <input id="newBranchProvince" type="text" placeholder="Province/State">
+                        </div>
+                        <div class="form-group">
+                            <label for="newBranchPostalCode">Postal Code</label>
+                            <input id="newBranchPostalCode" type="text" placeholder="Postal code">
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;margin-top:24px;">
+                        <button id="btnCreateBranch" class="btn-primary">Create Branch</button>
+                        <span id="createBranchMsg" class="msg"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transactions Page -->
+            <div id="page-transactions" class="page-content">
+                <div class="page-header">
+                    <h2>Transactions</h2>
+                    <p>View all system transactions</p>
+                </div>
+                <div class="card-modern">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                        <h3 style="margin:0;">All Transactions</h3>
+                        <button id="btnLoadTransactions" class="btn-secondary">Load Transactions</button>
+                    </div>
+                    <div id="transactionsTableWrap">
+                        <p class="help" style="color:#5e6b85;margin:0;">Click "Load Transactions" to view all transactions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Customer Page -->
+            <div id="page-edit-customer" class="page-content">
+                <div class="page-header">
+                    <h2>Edit Customer</h2>
+                    <p>Update customer information</p>
+                </div>
+                <div class="card-modern">
+                    <h3>Customer Information</h3>
+                    <input type="hidden" id="adminEditCustomerId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adminEditCustFirstName">First Name</label>
+                            <input id="adminEditCustFirstName" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminEditCustLastName">Last Name</label>
+                            <input id="adminEditCustLastName" type="text">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adminEditCustEmail">Email</label>
+                            <input id="adminEditCustEmail" type="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminEditCustPhone">Phone Number</label>
+                            <input id="adminEditCustPhone" type="tel">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adminEditCustDOB">Date of Birth</label>
+                            <input id="adminEditCustDOB" type="date">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminEditCustSIN">SIN (9 digits)</label>
+                            <input id="adminEditCustSIN" type="text" maxlength="11" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adminEditCustAddress">Address</label>
+                            <input id="adminEditCustAddress" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminEditCustBranchId">Branch</label>
+                            <select id="adminEditCustBranchId">
+                                <option value="">Select branch...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;margin-top:24px;">
+                        <button id="btnAdminUpdateCustomer" class="btn-primary">Update Customer</button>
+                        <button id="btnAdminCancelEditCustomer" class="btn-secondary" style="margin-left:12px;">Cancel</button>
+                        <span id="adminUpdateCustomerMsg" class="msg"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Teller Page -->
+            <div id="page-edit-teller" class="page-content">
+                <div class="page-header">
+                    <h2>Edit Teller</h2>
+                    <p>Update teller information</p>
+                </div>
+                <div class="card-modern">
+                    <h3>Teller Information</h3>
+                    <input type="hidden" id="adminEditTellerId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adminEditTellerFirstName">First Name</label>
+                            <input id="adminEditTellerFirstName" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminEditTellerLastName">Last Name</label>
+                            <input id="adminEditTellerLastName" type="text">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adminEditTellerEmail">Email</label>
+                            <input id="adminEditTellerEmail" type="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminEditTellerBranchName">Branch Name</label>
+                            <input id="adminEditTellerBranchName" type="text" placeholder="e.g., Downtown">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adminEditTellerBranchId">Branch</label>
+                            <select id="adminEditTellerBranchId">
+                                <option value="">Select branch...</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><!-- spacer --></div>
+                    </div>
+                    <div style="display:flex;align-items:center;margin-top:24px;">
+                        <button id="btnAdminUpdateTeller" class="btn-primary">Update Teller</button>
+                        <button id="btnAdminCancelEditTeller" class="btn-secondary" style="margin-left:12px;">Cancel</button>
+                        <span id="adminUpdateTellerMsg" class="msg"></span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/admin.js"></script>
+</body>
+</html>

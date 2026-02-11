@@ -2,6 +2,7 @@ package com.mybank.app.service.customer;
 
 import com.mybank.app.model.*;
 import com.mybank.app.repository.*;
+import com.mybank.app.util.Validator;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,6 +19,8 @@ public class CustomerService {
     private AccountRepository accountRepo;
     @Autowired
     private TransactionRepository transactionRepo;
+    @Autowired
+    private TellerRepository tellerRepo;
 
     public Optional<CustomerEntity> login(String email, String password) {
         return customerRepo.findByEmailAndPassword(email, password);
@@ -42,7 +45,7 @@ public class CustomerService {
         });
     }
 
-    public List<TransactionEntity> getTransactionHistory(Long userId, Long accountId) {
+    public List<Map<String, Object>> getTransactionHistory(Long userId, Long accountId) {
         // Fetch all accounts for this user
         Optional<List<AccountEntity>> accounts = accountRepo.findByUserId(userId);
         if (accounts.isEmpty()) {
@@ -54,7 +57,6 @@ public class CustomerService {
                 .map(AccountEntity::getAccountId)
                 .collect(Collectors.toList());
 
-
         // Verify that the requested account belongs to this user
         if (!accountIds.contains(accountId)) {
             return List.of();
@@ -63,10 +65,34 @@ public class CustomerService {
         // Get all transactions involving any of this user's accounts
         List<TransactionEntity> transactions = transactionRepo.findByFromAccountIdInOrToAccountIdIn(accountIds, accountIds);
 
-        // Filter only the ones that match the selected accountId
+        // Filter only the ones that match the selected accountId and enrich with teller name
         return transactions.stream()
                 .filter(tx -> Objects.equals(tx.getFromAccountId(), accountId) || Objects.equals(tx.getToAccountId(), accountId))
                 .sorted(Comparator.comparing(TransactionEntity::getTimestamp).reversed())
+                .map(tx -> {
+                    Map<String, Object> txMap = new HashMap<>();
+                    txMap.put("transactionId", tx.getTransactionId());
+                    txMap.put("fromAccountId", tx.getFromAccountId());
+                    txMap.put("toAccountId", tx.getToAccountId());
+                    txMap.put("amount", tx.getAmount());
+                    txMap.put("timestamp", tx.getTimestamp());
+                    txMap.put("type", tx.getType());
+                    txMap.put("description", tx.getDescription());
+                    txMap.put("tellerId", tx.getTellerId());
+                    
+                    // Fetch teller name if tellerId exists
+                    if (tx.getTellerId() != null) {
+                        tellerRepo.findById(tx.getTellerId()).ifPresent(teller -> {
+                            String tellerName = (teller.getFirstName() != null ? teller.getFirstName() : "") + 
+                                              (teller.getLastName() != null ? " " + teller.getLastName() : "");
+                            txMap.put("tellerName", tellerName.trim().isEmpty() ? null : tellerName.trim());
+                        });
+                    } else {
+                        txMap.put("tellerName", null);
+                    }
+                    
+                    return txMap;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -85,6 +111,9 @@ public class CustomerService {
     }
 
     public TransactionEntity deposit(Long accountId, BigDecimal amount) {
+        if (!Validator.isPositiveNumber(amount)) {
+            throw new RuntimeException("Amount must be positive");
+        }
         AccountEntity acc = accountRepo.findById(accountId).orElseThrow(() -> new RuntimeException("Account not found"));
         acc.setBalance(acc.getBalance().add(amount));
         accountRepo.save(acc);
@@ -99,7 +128,13 @@ public class CustomerService {
     }
 
     public TransactionEntity withdraw(Long accountId, BigDecimal amount) {
+        if (!Validator.isPositiveNumber(amount)) {
+            throw new RuntimeException("Amount must be positive");
+        }
         AccountEntity acc = accountRepo.findById(accountId).orElseThrow(() -> new RuntimeException("Account not found"));
+        if (!Validator.isSufficientFunds(acc.getBalance(), amount)) {
+            throw new RuntimeException("Insufficient funds");
+        }
         acc.setBalance(acc.getBalance().subtract(amount));
         accountRepo.save(acc);
         TransactionEntity tx = new TransactionEntity();
@@ -113,8 +148,17 @@ public class CustomerService {
     }
 
     public TransactionEntity transfer(Long fromAccountId, Long toAccountId, BigDecimal amount, String description) {
-        AccountEntity from = accountRepo.findById(fromAccountId).orElseThrow(() -> new RuntimeException("Account not found"));
-        AccountEntity to = accountRepo.findById(toAccountId).orElseThrow(() -> new RuntimeException("Account not found"));
+        if (!Validator.isPositiveNumber(amount)) {
+            throw new RuntimeException("Amount must be positive");
+        }
+        if (fromAccountId.equals(toAccountId)) {
+            throw new RuntimeException("Cannot transfer to the same account");
+        }
+        AccountEntity from = accountRepo.findById(fromAccountId).orElseThrow(() -> new RuntimeException("From account not found"));
+        AccountEntity to = accountRepo.findById(toAccountId).orElseThrow(() -> new RuntimeException("To account not found"));
+        if (!Validator.isSufficientFunds(from.getBalance(), amount)) {
+            throw new RuntimeException("Insufficient funds");
+        }
         from.setBalance(from.getBalance().subtract(amount));
         to.setBalance(to.getBalance().add(amount));
         accountRepo.save(from);
@@ -125,7 +169,7 @@ public class CustomerService {
         tx.setAmount(amount);
         tx.setTimestamp(LocalDateTime.now());
         tx.setType("TRANSFER");
-        tx.setDescription(description);
+        tx.setDescription(description != null ? description : "Transfer");
         return transactionRepo.save(tx);
     }
 }

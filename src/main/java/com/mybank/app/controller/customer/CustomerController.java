@@ -58,7 +58,7 @@ public class CustomerController {
         }
     }
 
-    @PutMapping("/update_profile")
+    @PostMapping("/update_profile")
     public ResponseEntity<ApiResponse<CustomerEntity>> updateProfile(@RequestBody Map<String, Object> updated) {
         boolean isUpdateEmail = false;
         boolean isUpdatePhone = false;
@@ -124,7 +124,7 @@ public class CustomerController {
         return ResponseEntity.ok(ApiResponse.success("Profile updated successfully", service.updateProfile(userId, profile).get()));
     }
 
-    @PutMapping("/change_password")
+    @PostMapping("/change_password")
     public ResponseEntity<ApiResponse<Map<String, Object>>> changePassword(@RequestBody Map<String, String> body){
         Long userId = Long.valueOf(String.valueOf(body.get("userId")));
         String oldPassword = body.get("oldPassword");
@@ -183,11 +183,11 @@ public class CustomerController {
     }
 
     @PostMapping("/transaction_history")
-    public ResponseEntity<ApiResponse<List<TransactionEntity>>> transactionHistory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ApiResponse<List<Map<String, Object>>>> transactionHistory(@RequestBody Map<String, Object> body) {
         Long userId = Long.valueOf(String.valueOf(body.get("userId")));
         Long accountId = Long.valueOf(String.valueOf(body.get("accountId")));
 
-        List<TransactionEntity> tx = service.getTransactionHistory(userId, accountId);
+        List<Map<String, Object>> tx = service.getTransactionHistory(userId, accountId);
         if(tx.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error("No transactions found"));
         } else {

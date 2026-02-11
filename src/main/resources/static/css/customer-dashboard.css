@@ -1,0 +1,192 @@
+/* Customer-specific styles moved from customer-dashboard.html */
+
+.accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.account-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #e3e8f2;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.account-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.account-type {
+    font-size: 13px;
+    font-weight: 600;
+    color: #5e6b85;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.account-balance {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1f2630;
+    margin: 8px 0;
+}
+
+.account-id {
+    font-size: 14px;
+    color: #5e6b85;
+    margin-top: 12px;
+}
+
+.account-id strong {
+    color: #1f2630;
+}
+
+/* Profile Form */
+.profile-form {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #e3e8f2;
+    max-width: 800px;
+}
+
+.form-section {
+    margin-bottom: 32px;
+}
+
+.form-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2630;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e3e8f2;
+}
+
+/* Transactions Table (customer specific) */
+.transactions-container {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #e3e8f2;
+    overflow-x: auto;
+}
+
+.transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transactions-table thead {
+    background: #f6f8fc;
+}
+
+.transactions-table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 13px;
+    color: #5e6b85;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #e3e8f2;
+}
+
+.transactions-table td {
+    padding: 16px;
+    border-bottom: 1px solid #e3e8f2;
+}
+
+.transactions-table tbody tr:hover {
+    background: #f6f8fc;
+}
+
+.tx-type {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.tx-type.DEPOSIT {
+    background: #d4edda;
+    color: #155724;
+}
+
+.tx-type.WITHDRAW {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.tx-type.TRANSFER {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.tx-amount {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.tx-amount.positive {
+    color: #0f9d58;
+}
+
+.tx-amount.negative {
+    color: #e53935;
+}
+
+.tx-date {
+    color: #5e6b85;
+    font-size: 14px;
+}
+
+/* Save button (customer-specific) */
+.btn-save {
+    background: #1f57ff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-save:hover {
+    background: #1646d3;
+}
+
+/* Phone number field specific styling */
+.field input[type="tel"] {
+    width: 100%;
+    height: 46px;
+    border: 1px solid #e3e8f2;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 15px;
+    background: #fff;
+    outline: none;
+}
+
+.field input[type="tel"]:focus {
+    border-color: #c5d2ff;
+    box-shadow: 0 0 0 3px rgba(31,87,255,.12);
+}
+
+/* Customer-unique responsive tweak */
+@media (max-width: 768px) {
+    .accounts-grid {
+        grid-template-columns: 1fr;
+    }
+}

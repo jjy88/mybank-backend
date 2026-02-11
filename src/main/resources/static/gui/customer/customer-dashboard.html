@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyBank | Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/customer-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>MyBank</h1>
+                <p id="sidebarUserName">Loading...</p>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" data-page="home">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            </svg>
+                            Accounts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="profile">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="banking">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Banking
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="transactions">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                            </svg>
+                            History
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="password">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                            </svg>
+                            Change Password
+                        </a>
+                    </li>
+                    <li class="nav-item nav-logout">
+                        <a href="#" class="nav-link" id="btnLogout">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Page - Accounts -->
+            <div id="page-home" class="page-content active">
+                <div class="page-header">
+                    <h2>My Accounts</h2>
+                    <p>View and manage your bank accounts</p>
+                </div>
+                <div id="accountsContainer" class="accounts-grid">
+                    <div class="empty-state">
+                        <p>Loading accounts...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div id="page-profile" class="page-content">
+                <div class="page-header">
+                    <h2>My Profile</h2>
+                    <p>Update your personal information</p>
+                </div>
+                <div class="profile-form" id="profileForm">
+                    <div class="form-section">
+                        <div class="form-section-title">Personal Information</div>
+                        <div class="grid-2">
+                            <div class="field">
+                                <label class="field-label" for="profileFirstName">First Name</label>
+                                <input type="text" id="profileFirstName" required>
+                            </div>
+                            <div class="field">
+                                <label class="field-label" for="profileLastName">Last Name</label>
+                                <input type="text" id="profileLastName" required>
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="field">
+                                <label class="field-label" for="profileEmail">Email</label>
+                                <input type="email" id="profileEmail" required>
+                            </div>
+                            <div class="field">
+                                <label class="field-label" for="profilePhone">Phone Number</label>
+                                <input type="tel" id="profilePhone">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="profileAddress">Address</label>
+                            <input type="text" id="profileAddress">
+                        </div>
+                        <div class="grid-2">
+                            <div class="field">
+                                <label class="field-label" for="profileDOB">Date of Birth</label>
+                                <input type="date" id="profileDOB" readonly>
+                            </div>
+                            <div class="field">
+                                <label class="field-label" for="profileSIN">SIN</label>
+                                <input type="text" id="profileSIN" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 24px;">
+                        <button class="btn-save" id="btnSaveProfile">Save Changes</button>
+                        <span id="profileSaveMsg" class="help" style="margin-left: 16px;"></span>
+                    </div>
+    </div>
+</div>
+
+            <!-- Banking Page - Deposit, Withdraw, Transfer -->
+            <div id="page-banking" class="page-content">
+                <div class="page-header">
+                    <h2>Banking</h2>
+                    <p>Deposit, withdraw, or transfer funds</p>
+        </div>
+
+                <!-- Deposit Form -->
+                <div class="profile-form" style="margin-bottom: 24px;">
+                    <div class="form-section-title">Deposit</div>
+                    <div class="grid-2">
+                        <div class="field">
+                            <label class="field-label" for="depositAccountId">Account</label>
+                            <select id="depositAccountId" required>
+                                <option value="">Select account...</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="depositAmount">Amount</label>
+                            <input type="text" id="depositAmount" inputmode="decimal" pattern="[0-9]+(\.[0-9]{1,2})?" placeholder="0.00" required>
+                        </div>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <button class="btn-save" id="btnDeposit">Deposit</button>
+                        <span id="depositMsg" class="help" style="margin-left: 16px;"></span>
+                    </div>
+                </div>
+
+                <!-- Withdraw Form -->
+                <div class="profile-form" style="margin-bottom: 24px;">
+                    <div class="form-section-title">Withdraw</div>
+                    <div class="grid-2">
+                        <div class="field">
+                            <label class="field-label" for="withdrawAccountId">Account</label>
+                            <select id="withdrawAccountId" required>
+                                <option value="">Select account...</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="withdrawAmount">Amount</label>
+                            <input type="text" id="withdrawAmount" inputmode="decimal" pattern="[0-9]+(\.[0-9]{1,2})?" placeholder="0.00" required>
+                        </div>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <button class="btn-save" id="btnWithdraw">Withdraw</button>
+                        <span id="withdrawMsg" class="help" style="margin-left: 16px;"></span>
+                    </div>
+        </div>
+
+                <!-- Transfer Form -->
+                <div class="profile-form">
+                    <div class="form-section-title">Transfer</div>
+                    <div class="grid-2">
+                        <div class="field">
+                            <label class="field-label" for="transferFromAccountId">From Account</label>
+                            <select id="transferFromAccountId" required>
+                                <option value="">Select account...</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="transferToAccountId">To Account ID</label>
+                            <input type="text" id="transferToAccountId" inputmode="numeric" pattern="[0-9]+" placeholder="Account ID" required>
+                        </div>
+                    </div>
+                    <div class="grid-2" style="margin-top: 16px;">
+                        <div class="field">
+                            <label class="field-label" for="transferAmount">Amount</label>
+                            <input type="text" id="transferAmount" inputmode="decimal" pattern="[0-9]+(\.[0-9]{1,2})?" placeholder="0.00" required>
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="transferDescription">Description (optional)</label>
+                            <input type="text" id="transferDescription" placeholder="e.g., Payment for services">
+                        </div>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <button class="btn-save" id="btnTransfer">Transfer</button>
+                        <span id="transferMsg" class="help" style="margin-left: 16px;"></span>
+                    </div>
+                </div>
+        </div>
+
+            <!-- Transactions History Page -->
+            <div id="page-transactions" class="page-content">
+                <div class="page-header">
+                    <h2>Transaction History</h2>
+                    <p>View all your recent transactions</p>
+                </div>
+                <div class="transactions-container">
+                    <div id="transactionsContainer">
+                        <div class="empty-state">
+                            <p>Loading transactions...</p>
+                        </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Change Password Page -->
+            <div id="page-password" class="page-content">
+                <div class="page-header">
+                    <h2>Change Password</h2>
+                    <p>Update your account password</p>
+                </div>
+                <div class="profile-form">
+                    <div class="form-section">
+                        <div class="grid-2">
+                            <div class="field">
+                                <label class="field-label" for="passwordOld">Current Password</label>
+                                <input type="password" id="passwordOld" required>
+                            </div>
+                            <div class="field">
+                                <label class="field-label" for="passwordNew">New Password</label>
+                                <input type="password" id="passwordNew" minlength="6" required>
+                            </div>
+                        </div>
+                        <div class="field" style="margin-top: 16px;">
+                            <label class="field-label" for="passwordConfirm">Confirm New Password</label>
+                            <input type="password" id="passwordConfirm" minlength="6" required>
+                        </div>
+                    </div>
+                    <div style="margin-top: 24px;">
+                        <button class="btn-save" id="btnChangePassword">Change Password</button>
+                        <span id="passwordMsg" class="help" style="margin-left: 16px;"></span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script src="../../js/customer.js"></script>
+</body>
+</html>

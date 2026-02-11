@@ -1,18 +1,9 @@
-package com.mybank.app.model;
+package com.mybank.app.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "transaction")
-public class TransactionEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TransactionDTO {
     private Long transactionId;
     private Long fromAccountId;
     private Long toAccountId;
@@ -20,7 +11,10 @@ public class TransactionEntity {
     private LocalDateTime timestamp;
     private String type;
     private String description;
-    private Long tellerId; // Teller who processed the transaction
+    private Long tellerId;
+    private String tellerName; // "FirstName LastName" or null
+
+    public TransactionDTO() {}
 
     public Long getTransactionId() { return transactionId; }
     public void setTransactionId(Long transactionId) { this.transactionId = transactionId; }
@@ -38,4 +32,7 @@ public class TransactionEntity {
     public void setDescription(String description) { this.description = description; }
     public Long getTellerId() { return tellerId; }
     public void setTellerId(Long tellerId) { this.tellerId = tellerId; }
+    public String getTellerName() { return tellerName; }
+    public void setTellerName(String tellerName) { this.tellerName = tellerName; }
 }
+

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyBank | Teller Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/teller-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>MyBank</h1>
+                <p id="tellerSidebarName">Teller</p>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" data-page="home">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            Customers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="transactions">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Transactions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="create-customer">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                            </svg>
+                            Create Customer
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="create-account">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            Create Account
+                        </a>
+                    </li>
+
+                    <!-- New menu items for Teller Details and Processed Transactions -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="teller-details">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px;height:20px;margin-right:12px;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.26 0 4.39.495 6.279 1.364M12 7a4 4 0 110 8 4 4 0 010-8z"></path>
+                            </svg>
+                            Teller Details
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="processed-transactions">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px;height:20px;margin-right:12px;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h4l3 8 4-16 3 8h4"></path>
+                            </svg>
+                            Processed Transactions
+                        </a>
+                    </li>
+
+                    <li class="nav-item nav-logout">
+                        <a href="#" class="nav-link" id="tellerLogoutBtn">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Page - Customers -->
+            <div id="page-home" class="page-content active">
+                <div class="page-header">
+                    <h2>Customers</h2>
+                    <p>View and manage customer information</p>
+                </div>
+                <div class="card-modern">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+                        <h3 style="margin:0;">Customer List</h3>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <input type="text" id="customerSearch" placeholder="Search (name, email, address)..." style="padding:8px 12px;border:1px solid #e3e8f2;border-radius:6px;min-width:200px;">
+                            <select id="customerBranchFilter" style="padding:8px 12px;border:1px solid #e3e8f2;border-radius:6px;">
+                                <option value="">All Branches</option>
+                            </select>
+                            <input type="text" id="customerAccountFilter" placeholder="Account ID" inputmode="numeric" pattern="[0-9]+" style="padding:8px 12px;border:1px solid #e3e8f2;border-radius:6px;max-width:120px;">
+                            <button id="btnLoadTellerCustomers" class="btn-secondary">Load Customers</button>
+                        </div>
+                    </div>
+                    <div id="tellerCustomersWrap">
+                        <p class="help" style="color:#5e6b85;margin:0;">Click "Load Customers" to view all customers.</p>
+                    </div>
+        </div>
+
+                <!-- NOTE: Teller Information and Processed Transactions cards were removed from the Customers page.
+                     Those two cards are moved into their own pages below. -->
+            </div>
+
+            <!-- New: Teller Details Page -->
+            <div id="page-teller-details" class="page-content">
+                <div class="page-header">
+                    <h2>Teller Details</h2>
+                    <p>Your profile and assigned branch</p>
+                </div>
+                <div class="card-modern">
+                    <h3>Teller Information</h3>
+                    <div id="tellerDetailsInfo" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;">
+                        <div>
+                            <label style="font-weight:600;color:#5e6b85;font-size:13px;display:block;margin-bottom:4px;">Name</label>
+                            <p id="tellerDetailsName" style="margin:0;color:#1f2630;">—</p>
+                        </div>
+                        <div>
+                            <label style="font-weight:600;color:#5e6b85;font-size:13px;display:block;margin-bottom:4px;">Email</label>
+                            <p id="tellerDetailsEmail" style="margin:0;color:#1f2630;">—</p>
+                        </div>
+                        <div>
+                            <label style="font-weight:600;color:#5e6b85;font-size:13px;display:block;margin-bottom:4px;">Branch</label>
+                            <p id="tellerDetailsBranch" style="margin:0;color:#1f2630;">—</p>
+                        </div>
+                        <div>
+                            <label style="font-weight:600;color:#5e6b85;font-size:13px;display:block;margin-bottom:4px;">Teller ID</label>
+                            <p id="tellerDetailsId" style="margin:0;color:#1f2630;">—</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New: Processed Transactions Page -->
+            <div id="page-processed-transactions" class="page-content">
+                <div class="page-header">
+                    <h2>Processed Transactions</h2>
+                    <p>Transactions you processed</p>
+                </div>
+                <div class="card-modern">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+                        <h3 style="margin:0;">Processed Transactions</h3>
+                        <button id="btnLoadProcessedTransactions" class="btn-secondary">Refresh</button>
+                    </div>
+                    <div id="processedTransactionsWrap">
+                        <p class="help" style="color:#5e6b85;margin:0;">Click "Refresh" to view your processed transactions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transactions Page -->
+            <div id="page-transactions" class="page-content">
+                <div class="page-header">
+                    <h2>Transactions</h2>
+                    <p>Process deposits, withdrawals, and transfers</p>
+                </div>
+
+                <!-- Deposit -->
+                <div class="card-modern">
+                    <h3>Process Deposit</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="depAccountId">Account ID</label>
+                            <input id="depAccountId" type="text" inputmode="numeric" pattern="[0-9]+" placeholder="Account ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="depAmount">Amount</label>
+                            <input id="depAmount" type="text" inputmode="decimal" pattern="[0-9]+(\.[0-9]{1,2})?" placeholder="0.00">
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;">
+                        <button id="btnDep" class="btn-primary">Deposit</button>
+                        <span id="depMsg" class="msg"></span>
+            </div>
+        </div>
+
+                <!-- Withdraw -->
+                <div class="card-modern">
+                    <h3>Process Withdrawal</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="wdAccountId">Account ID</label>
+                            <input id="wdAccountId" type="text" inputmode="numeric" pattern="[0-9]+" placeholder="Account ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="wdAmount">Amount</label>
+                            <input id="wdAmount" type="text" inputmode="decimal" pattern="[0-9]+(\.[0-9]{1,2})?" placeholder="0.00">
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;">
+                        <button id="btnWd" class="btn-primary">Withdraw</button>
+                        <span id="wdMsg" class="msg"></span>
+            </div>
+        </div>
+
+                <!-- Transfer -->
+                <div class="card-modern">
+                    <h3>Process Transfer</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tfFromAccountId">From Account ID</label>
+                            <input id="tfFromAccountId" type="text" inputmode="numeric" pattern="[0-9]+" placeholder="From Account ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="tfToAccountId">To Account ID</label>
+                            <input id="tfToAccountId" type="text" inputmode="numeric" pattern="[0-9]+" placeholder="To Account ID">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tfAmount">Amount</label>
+                            <input id="tfAmount" type="text" inputmode="decimal" pattern="[0-9]+(\.[0-9]{1,2})?" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label for="tfDescription">Description (optional)</label>
+                            <input id="tfDescription" type="text" placeholder="e.g., Payment for services">
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;">
+                        <button id="btnTf" class="btn-primary">Transfer</button>
+                        <span id="tfMsg" class="msg"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create Customer Page -->
+            <div id="page-create-customer" class="page-content">
+                <div class="page-header">
+                    <h2>Create Customer</h2>
+                    <p>Register a new customer account</p>
+                </div>
+                <div class="card-modern">
+                    <h3>Customer Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newCustFirstName">First Name *</label>
+                            <input id="newCustFirstName" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newCustLastName">Last Name *</label>
+                            <input id="newCustLastName" type="text" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newCustEmail">Email *</label>
+                            <input id="newCustEmail" type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newCustPassword">Password *</label>
+                            <input id="newCustPassword" type="password" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newCustPhone">Phone Number</label>
+                            <input id="newCustPhone" type="tel" placeholder="+1 555 123 4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="newCustDOB">Date of Birth</label>
+                            <input id="newCustDOB" type="date">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newCustSIN">SIN (9 digits)</label>
+                            <input id="newCustSIN" type="text" maxlength="11" inputmode="numeric" placeholder="123456789">
+                        </div>
+                        <div class="form-group">
+                            <label for="newCustAddress">Address</label>
+                            <input id="newCustAddress" type="text" placeholder="Street address">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newCustBranchId">Branch *</label>
+                            <select id="newCustBranchId" required>
+                                <option value="">Select branch...</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><!-- spacer --></div>
+                    </div>
+                    <div style="display:flex;align-items:center;margin-top:24px;">
+                        <button id="btnCreateCustomer" class="btn-primary">Create Customer</button>
+                        <span id="createCustomerMsg" class="msg"></span>
+                    </div>
+            </div>
+        </div>
+
+            <!-- Create Account Page -->
+            <div id="page-create-account" class="page-content">
+                <div class="page-header">
+                    <h2>Create Account</h2>
+                    <p>Open a new account for an existing customer</p>
+                </div>
+                <div class="card-modern">
+                    <h3>Account Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newAccCustomerId">Customer ID *</label>
+                            <input id="newAccCustomerId" type="text" inputmode="numeric" pattern="[0-9]+" placeholder="Customer ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newAccType">Account Type *</label>
+                            <select id="newAccType" required>
+                                <option value="">Select account type...</option>
+                                <option value="CHECKING">Checking</option>
+                                <option value="SAVINGS">Savings</option>
+                                <option value="CHEQUING">Chequing</option>
+                                <option value="STUDENT">Student</option>
+                                <option value="BUSINESS">Business</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newAccInitialDeposit">Initial Deposit (optional)</label>
+                            <input id="newAccInitialDeposit" type="text" inputmode="decimal" pattern="[0-9]+(\.[0-9]{1,2})?" value="0" placeholder="0.00">
+                        </div>
+                        <div class="form-group"><!-- spacer --></div>
+                    </div>
+                    <div style="display:flex;align-items:center;margin-top:24px;">
+                        <button id="btnCreateAccount" class="btn-primary">Create Account</button>
+                        <span id="createAccountMsg" class="msg"></span>
+                    </div>
+    </div>
+            </div>
+
+            <!-- Edit Customer Page -->
+            <div id="page-edit-customer" class="page-content">
+                <div class="page-header">
+                    <h2>Edit Customer</h2>
+                    <p>Update customer information</p>
+                </div>
+                <div class="card-modern">
+                    <h3>Customer Information</h3>
+                    <input type="hidden" id="editCustomerId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editCustFirstName">First Name</label>
+                            <input id="editCustFirstName" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="editCustLastName">Last Name</label>
+                            <input id="editCustLastName" type="text">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editCustEmail">Email</label>
+                            <input id="editCustEmail" type="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="editCustPhone">Phone Number</label>
+                            <input id="editCustPhone" type="tel">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editCustDOB">Date of Birth</label>
+                            <input id="editCustDOB" type="date">
+                        </div>
+                        <div class="form-group">
+                            <label for="editCustSIN">SIN (9 digits)</label>
+                            <input id="editCustSIN" type="text" maxlength="11" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editCustAddress">Address</label>
+                            <input id="editCustAddress" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="editCustBranchId">Branch</label>
+                            <select id="editCustBranchId">
+                                <option value="">Select branch...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;margin-top:24px;">
+                        <button id="btnUpdateCustomer" class="btn-primary">Update Customer</button>
+                        <button id="btnCancelEdit" class="btn-secondary" style="margin-left:12px;">Cancel</button>
+                        <span id="updateCustomerMsg" class="msg"></span>
+                    </div>
+                </div>
+            </div>
+        </main>
+</div>
+
+<!-- Replace inline JS with external script -->
+<script src="../../js/teller.js"></script>
+</body>
+</html>

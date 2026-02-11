@@ -2,35 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Teller Login - MyBank</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Admin Login - MyBank</title>
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body class="app-body">
 <div class="auth-container">
     <div class="auth-card">
-        <h1 class="auth-title">Sign in as Teller</h1>
+        <h1 class="auth-title">Sign in as Administrator</h1>
         <p class="auth-subtitle">
-            Use your teller credentials to access customer operations.
+            Admin access for managing customers, tellers, and system settings.
         </p>
 
-        <form id="tellerLoginForm" class="auth-form">
+        <form id="adminLoginForm" class="auth-form">
             <div class="form-group">
-                <label for="tellerEmail">Email</label>
+                <label for="adminEmail">Email</label>
                 <input
                     type="email"
-                    id="tellerEmail"
+                    id="adminEmail"
                     name="email"
                     class="input-field"
-                    placeholder="teller@example.com"
+                    placeholder="admin@example.com"
                     required
                 />
             </div>
 
             <div class="form-group">
-                <label for="tellerPassword">Password</label>
+                <label for="adminPassword">Password</label>
                 <input
                     type="password"
-                    id="tellerPassword"
+                    id="adminPassword"
                     name="password"
                     class="input-field"
                     placeholder="Enter your password"
@@ -43,14 +43,14 @@
             </button>
 
             <div class="role-switch">
-                <a href="customer-login.html">Sign in as Customer</a>
+                <a href="../customer/customer-login.html">Sign in as Customer</a>
                 <span class="divider">|</span>
-                <a href="admin-login.html">Sign in as Admin</a>
+                <a href="../teller/teller-login.html">Sign in as Teller</a>
             </div>
         </form>
     </div>
 </div>
 
-<script src="teller-login.js"></script>
+<script src="../../js/admin.js"></script>
 </body>
 </html>
