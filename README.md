@@ -239,4 +239,3 @@ This project is for educational purposes only.
 
 **Built with ❤️ by the MyBank Team**
 
-For questions or issues, please contact: jjyu4672@gmail.com
