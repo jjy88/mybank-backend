@@ -2,8 +2,6 @@
 
 A full-stack banking management system built with **Spring Boot** and **MySQL**, developed as a group project. This RESTful API backend provides comprehensive banking operations for customers, tellers, and administrators. 
 
-This project was developed as a group assignment for comp354. 
-
 
 ## 📋 Table of Contents
 
@@ -220,12 +218,10 @@ logging.level.com.mybank=DEBUG
 
 ## 🤝 Contributors
 
-This project was developed as a group assignment for comp354. 
-
 Emma Yu
-Lilas Guan
-Siguang Zhao
 Swayam Patel
+Siguang Zhao
+Lilas Guan
 Xiaojie Lin
 Tuya Wei 
 
