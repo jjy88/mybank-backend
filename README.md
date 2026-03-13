@@ -1,6 +1,9 @@
 # 🏦 MyBank - Banking Management System
 
-A full-stack banking management system built with **Spring Boot** and **MySQL**, developed as a group project. This RESTful API backend provides comprehensive banking operations for customers, tellers, and administrators.
+A full-stack banking management system built with **Spring Boot** and **MySQL**, developed as a group project. This RESTful API backend provides comprehensive banking operations for customers, tellers, and administrators. 
+
+This project was developed as a group assignment for comp354. 
+
 
 ## 📋 Table of Contents
 
