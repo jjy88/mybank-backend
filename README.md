@@ -217,23 +217,20 @@ logging.level.com.mybank=DEBUG
 
 ## 🤝 Contributors
 
-This project was developed as a group assignment for [Course Name/Number] at [University Name], Fall 2024.
+This project was developed as a group assignment for comp354. 
 
-**Team Members:**
-- [Your Name] - Backend Development
-- [Team Member 2] - Database Design
-- [Team Member 3] - Frontend Development
-- [Team Member 4] - API Integration
+Emma Yu
+Lilas Guan
+Siguang Zhao
+Swayam Patel
+Xiaojie Lin
+Tuya Wei 
 
 ## 📄 License
 
 This project is for educational purposes only.
 
-## 🙏 Acknowledgments
 
-- Course instructor: [Instructor Name]
-- Spring Boot Documentation
-- MySQL Documentation
 
 ---
 
