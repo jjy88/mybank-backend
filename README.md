@@ -206,26 +206,7 @@ spring.jpa.hibernate.ddl-auto=update
 logging.level.com.mybank=DEBUG
 ```
 
-## 🔒 Security Notes
 
-⚠️ **Important**: This is an academic project. For production use, implement:
-- Password encryption (BCrypt)
-- JWT authentication
-- Input validation & sanitization
-- SQL injection prevention
-- HTTPS encryption
-- Rate limiting
-
-## 🤝 Contributors
-
-Emma Yu
-Swayam Patel
-Siguang Zhao
-Lilas Guan
-Xiaojie Lin
-Tuya Wei 
-
-## 📄 License
 
 This project is for educational purposes only.
 
