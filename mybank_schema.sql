@@ -167,7 +167,7 @@ VALUES (@marry_uid, 'CHECKING', 500.00);
 
 USE mybank;
 
--- Ensure a branch exists (use your real branch if already present)
+-- Ensure a branch exists 
 INSERT INTO branch (branch_name, address, city, province, postal_code, phone_number)
 SELECT 'Downtown Montreal','123 Demo St','Montreal','QC','H1A 1A1','514-555-0000'
 WHERE NOT EXISTS (SELECT 1 FROM branch WHERE branch_name='Downtown Montreal');
